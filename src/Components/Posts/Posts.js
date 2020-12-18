@@ -5,9 +5,10 @@ const Posts = (props) => {
 
     const data = props.jsondata;
 
+    
     const DifferentPosts = data.map((e, i) => {
         return (
-            <div key = {i} className = {classes.Posts}>
+            <div key = {i} className = {classes.Posts} onClick = {() => props.clickedBlog(i)}>
                 <div className = {classes.Title}>
                     <h3>{e.title}</h3>
                 </div>
@@ -21,6 +22,8 @@ const Posts = (props) => {
             </div>
         );
     });
+    
+
     return(
         <div className = {classes.List}>
             <div className = {classes.Header}>

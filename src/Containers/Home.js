@@ -1,4 +1,4 @@
-import React, {setState} from 'react';
+import React, { useState } from 'react';
 import Posts from "../Components/Posts/Posts";
 import IndividualPost from "../Components/Individual-Post/Post";
 import Logo from "../Components/Logo/Logo";
@@ -6,6 +6,17 @@ import classes from "./Home.module.css";
 import JsonInfo from "../json-data/json-data";
 
 const Home = () => {
+    const [chosen, setChosen] = useState(JsonInfo[0]);
+
+
+
+    const clickedBlog = (clickedIndex) => {
+        const s = JsonInfo.find((e, i) => {
+            return clickedIndex === i;
+        });
+
+        setChosen(s);
+    }
     
     return (
         <div className = {classes.Container}>
@@ -14,12 +25,15 @@ const Home = () => {
             </div>
 
             <div className = {classes.Div2}>
-                <IndividualPost />
+                <IndividualPost 
+                    curpost = {chosen}
+                />
             </div>
 
             <div className = {classes.Div3}>
                 <Posts 
                     jsondata = {JsonInfo}
+                    clickedBlog = {clickedBlog}
                 />
             </div>
 
