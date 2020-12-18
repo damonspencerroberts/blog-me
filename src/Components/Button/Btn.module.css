@@ -1,0 +1,22 @@
+.Button {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+	background-color:#cde8ff;
+	border-radius:2px;
+	cursor: pointer;
+	color:#000000;
+	font-size:15px;
+	font-weight:bold;
+	padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    margin: 20px auto;
+    width: 160px;
+    font-size: 1.5rem;
+}
+.Button:hover {
+	opacity: 0.75;
+}
+
+.Button:active {
+	top:1px;
+}
