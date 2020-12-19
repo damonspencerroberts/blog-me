@@ -13,7 +13,7 @@ const Post = (props) => {
 
     const formatParagraph = (p) => {
 
-        const newP = p.split("  ");
+        const newP = p.split("\n\n");
         const newArr = [];
         for (let e in newP) {
             if (newP[e] !== "") {

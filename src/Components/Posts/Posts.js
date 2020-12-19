@@ -5,8 +5,10 @@ const Posts = (props) => {
 
     const data = props.jsondata;
 
+    const data1 = data.sort((a,b) => (a.date > b.date) ? -1 : ((b.date > a.date) ? 1 : 0)); ;
+
     
-    const DifferentPosts = data.map((e, i) => {
+    const DifferentPosts = data1.map((e, i) => {
         return (
             <div key = {i} className = {classes.Posts} onClick = {() => props.clickedBlog(i)}>
                 <div className = {classes.Title}>

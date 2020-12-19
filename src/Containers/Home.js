@@ -5,6 +5,7 @@ import Logo from "../Components/Logo/Logo";
 import classes from "./Home.module.css";
 import NewPost from "../Components/new-post/new-post";
 import axios from "../Axios";
+import Spinner from "../Components/Spinner/spinner";
 
 
 class Home extends Component {
@@ -13,13 +14,15 @@ class Home extends Component {
 
         this.state = {
             chosen: null,
-            data: null
+            data: null,
+            spinner: false
         }
 
         this.clickedBlog = this.clickedBlog.bind(this);
     }
 
     componentDidMount() {
+        this.setState({spinner: true})
         axios.get("/blog-post.json")
         .then(res => {
             const s = [];
@@ -27,10 +30,11 @@ class Home extends Component {
                 s.push({
                     ...res.data[e]
                 });
-                this.setState({data: s, chosen: s[0]});
+                this.setState({data: s, chosen: s[0], spinner: false});
             }
         })
         .catch(err => {
+            this.setState({spinner: false});
             alert(err);
         }) 
     }
@@ -46,7 +50,21 @@ class Home extends Component {
     }
     
     render() {
-        let cont = null;
+        const spin = this.state.spinner;
+        let cont = (
+            <React.Fragment>
+                <div className = {classes.Div1}>
+                    <Logo />
+                </div>
+                <div className = {classes.Div4}>
+                    <NewPost />
+                </div>
+                <div className = {classes.Div5}>
+            
+                </div>
+            </React.Fragment>
+        );
+
         if (this.state.data !== null) {
             cont = (
                 <React.Fragment>
@@ -55,16 +73,16 @@ class Home extends Component {
                     </div>
 
                     <div className = {classes.Div2}>
-                        <IndividualPost 
+                        {spin ? <Spinner/> : <IndividualPost 
                             curpost = {this.state.chosen}
-                        />
+                        />}
                     </div>
 
                     <div className = {classes.Div3}>
-                        <Posts 
+                        {spin ? <Spinner /> : <Posts 
                             jsondata = {this.state.data}
                             clickedBlog = {this.clickedBlog}
-                        />
+                        />}
                     </div>
 
                     <div className = {classes.Div4}>

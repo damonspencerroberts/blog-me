@@ -1,4 +1,8 @@
 .Container {
     margin: 25px 50px;
     text-align: center;
+    overflow: auto;
+    max-height: 1200px;
+    font-size: 1.25rem;
+    padding: 30px;
 }
