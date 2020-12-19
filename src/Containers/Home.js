@@ -3,7 +3,7 @@ import Posts from "../Components/Posts/Posts";
 import IndividualPost from "../Components/Individual-Post/Post";
 import Logo from "../Components/Logo/Logo";
 import classes from "./Home.module.css";
-import NewPost from "../Components/new-post/new-post";
+import NewPost from "../Components/New-Post/new-post";
 import JsonInfo from "../json-data/json-data";
 
 const Home = () => {

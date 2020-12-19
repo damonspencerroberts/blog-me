@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from "./Form.module.css";
 import ButtonIs from "../Button/Button";
+import axios from "../../Axios";
 
 
-const newPostForm = (props) => {
+const NewPostForm = (props) => {
+    const [author, setAuthor] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+
+    const submitForm = () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth()+1;
+        const day = currentDate.getDate();
+
+        const fullDate = `${day}/${month}/${year}`;
+
+        const post = {
+            blogtitle: title,
+            blogauthor: author,
+            blogcontent: content,
+            blogdate: fullDate
+        }
+
+        axios.post('/blog-post.json', post)
+            .then(response => {
+                console.log("Success");
+                setAuthor("");
+                setTitle("");
+                setContent("");
+            })
+                
+            .catch(error => {
+                alert(error);
+        });
+    }
+
     return(
         <div id = "new-form">
             <hr className = {classes.Horizontal} />
@@ -11,28 +44,45 @@ const newPostForm = (props) => {
                 <h1>New Post</h1>
                 <form>
                     <div>
-                    <label for="textinput">Author Name</label>  
-                        <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md"/>
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                    <label className="col-md-4 control-label" for="textinput">Blog Title</label>  
-                        <div className="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="" className="form-control input-md"/>
-                        </div>
-                    
-                    </div>
-                    <div className="form-group">
-                    <label className="col-md-4 control-label" for="textarea">Blog Content</label>
-                        <div className="col-md-4">                     
-                            <textarea className="form-control" id="textarea" name="textarea"></textarea>
+                    <label>Author Name</label>  
+                        <div>
+                            <input 
+                                id="textinput" 
+                                name="textinput" 
+                                type="text" 
+                                value = {author}
+                                onChange = {(event) => setAuthor(event.target.value)}
+                            />
                         </div>
                     </div>
 
                     <div>
-                        <ButtonIs text = "Post Blog" />
+                    <label>Blog Title</label>  
+                        <div>
+                            <input 
+                                id="textinput" 
+                                name="textinput" 
+                                type="text" 
+                                value = {title}
+                                onChange = {(event) => setTitle(event.target.value)}
+                            />
+                        </div>
+                    
+                    </div>
+                    <div>
+                    <label>Blog Content</label>
+                        <div>                     
+                            <textarea  
+                            id="textarea" 
+                            name="textarea"
+                            value = {content}
+                            onChange = {(event) => setContent(event.target.value)}
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <ButtonIs text = "Post Blog" clicked = {submitForm}/>
                     </div>
                 </form>
             </div>
@@ -40,4 +90,4 @@ const newPostForm = (props) => {
     );
 }
 
-export default newPostForm;
+export default NewPostForm;
