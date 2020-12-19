@@ -1,10 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Posts from "../Components/Posts/Posts";
 import IndividualPost from "../Components/Individual-Post/Post";
 import Logo from "../Components/Logo/Logo";
 import classes from "./Home.module.css";
-import NewPost from "../Components/New-Post/new-post";
-import JsonInfo from "../json-data/json-data";
+import NewPost from "../Components/new-post/new-post";
+import axios from "../Axios";
 
 
 class Home extends Component {
@@ -12,7 +12,8 @@ class Home extends Component {
         super()
 
         this.state = {
-            chosen: JsonInfo[0]
+            chosen: null,
+            data: null
         }
 
         this.clickedBlog = this.clickedBlog.bind(this);
@@ -24,20 +25,19 @@ class Home extends Component {
             const s = [];
             for (let e in res.data) {
                 s.push({
-                    ...res.data[e],
-                    id: e
+                    ...res.data[e]
                 });
+                this.setState({data: s, chosen: s[0]});
             }
-            
-           this.setState({dbdata: s, chosen: this.state.dbdata[0]});
         })
         .catch(err => {
             alert(err);
-        })
+        }) 
     }
+    
 
     clickedBlog(clickedIndex) {
-        const s = JsonInfo.find((e, i) => {
+        const s = this.state.data.find((e, i) => {
                 return clickedIndex === i;
             });
     
@@ -46,32 +46,41 @@ class Home extends Component {
     }
     
     render() {
+        let cont = null;
+        if (this.state.data !== null) {
+            cont = (
+                <React.Fragment>
+                    <div className = {classes.Div1}>
+                        <Logo />
+                    </div>
+
+                    <div className = {classes.Div2}>
+                        <IndividualPost 
+                            curpost = {this.state.chosen}
+                        />
+                    </div>
+
+                    <div className = {classes.Div3}>
+                        <Posts 
+                            jsondata = {this.state.data}
+                            clickedBlog = {this.clickedBlog}
+                        />
+                    </div>
+
+                    <div className = {classes.Div4}>
+                        <NewPost />
+                    </div>
+
+                    <div className = {classes.Div5}>
+                    
+                    </div>
+                </React.Fragment>
+            );
+        }
+        
         return(
             <div className = {classes.Container}>
-                <div className = {classes.Div1}>
-                    <Logo />
-                </div>
-
-                <div className = {classes.Div2}>
-                    <IndividualPost 
-                        curpost = {this.state.chosen}
-                    />
-                </div>
-
-                <div className = {classes.Div3}>
-                    <Posts 
-                        jsondata = {JsonInfo}
-                        clickedBlog = {this.clickedBlog}
-                    />
-                </div>
-
-                <div className = {classes.Div4}>
-                    <NewPost />
-                </div>
-
-                <div className = {classes.Div5}>
-                
-                </div>
+                {cont}
             </div>
         );
     }
@@ -79,7 +88,3 @@ class Home extends Component {
 
 
 export default Home;
-
-/**
- * 
- */

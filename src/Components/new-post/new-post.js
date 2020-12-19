@@ -18,10 +18,10 @@ const NewPostForm = (props) => {
         const fullDate = `${day}/${month}/${year}`;
 
         const post = {
-            blogtitle: title,
-            blogauthor: author,
-            blogcontent: content,
-            blogdate: fullDate
+            title: title,
+            author: author,
+            content: content,
+            date: fullDate
         }
 
         axios.post('/blog-post.json', post)
