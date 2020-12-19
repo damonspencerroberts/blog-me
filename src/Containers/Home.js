@@ -19,10 +19,17 @@ class Home extends Component {
         }
 
         this.clickedBlog = this.clickedBlog.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
         this.setState({spinner: true})
+        this.getData();
+    }
+
+
+
+    getData() {
         axios.get("/blog-post.json")
         .then(res => {
             const s = [];
@@ -38,7 +45,6 @@ class Home extends Component {
             alert(err);
         }) 
     }
-    
 
     clickedBlog(clickedIndex) {
         const s = this.state.data.find((e, i) => {
