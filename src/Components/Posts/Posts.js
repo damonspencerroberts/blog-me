@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import classes from './Posts.module.css';
 import SmallButton from "../Button/Small-Btn/Small-Btn";
+import Delete from "../Button/Delete-Btn/Delete";
+import axios from "../../Axios";
 
 const Posts = (props) => {
     const data = props.jsondata;
@@ -10,7 +12,8 @@ const Posts = (props) => {
     
     const DifferentPosts = data1.map((e, i) => {
         return (
-            <div key = {i} className = {classes.Posts} onClick = {() => props.clickedBlog(i)}>
+            <div key = {i} className = {classes.Posts} onClick = {() => props.clickedBlog(i + start)}>
+                <Delete clicked = {() => clickDelete(i + start)}/>
                 <div className = {classes.Title}>
                     <h3>{e.title}</h3>
                 </div>
@@ -24,20 +27,27 @@ const Posts = (props) => {
             </div>
         );
     });
-
-    const Next = (start, end, dir) => {
     
+    const clickDelete = (d) => {
+        const dataIs = data.find(e => {
+            return e === d;
+        });
+        axios.delete('/blog-post.json', {data: dataIs});
+    }
+    const Next = (start, end, dir) => {
         let s, e;
-
         if (start <= 0 && dir === "prev" ) {
             s = 0;
             e = 4;
+        } else if ((end >= data.length && dir === "next") || (start === data.length - 5 && dir === "next")) {
+            s = start;
+            e = end;
         } else if (dir === "next") {
             s = start += 5;
             e = end += 5;
         } else if (dir === "prev") {
             s = start -= 5;
-            e = start -= 5;
+            e = end -= 5;
         } else {
             alert("error!")
         }
@@ -57,7 +67,7 @@ const Posts = (props) => {
             {DifferentPosts}
 
             <div className = {classes.PostBtns}>
-                <p>{start + 1} - {end + 1} of {data.length} posts.</p>
+                <p>{`Page ${parseInt(end/5 + 1)} / ${Math.ceil(data.length/5)}`}</p>
                 <SmallButton text = "Previous" clicked = {() => Next(start, end, "prev")}/>
                 <SmallButton text = "Next" clicked = {() => Next(start, end, "next")}/>
             </div>

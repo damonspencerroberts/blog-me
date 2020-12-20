@@ -24,13 +24,14 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.setState({spinner: true})
+        this.setState({spinner: true});
         this.getData();
     }
 
 
 
     getData() {
+        
         axios.get("/blog-post.json")
         .then(res => {
             const s = [];
@@ -58,10 +59,17 @@ class Home extends Component {
     
     render() {
         const spin = this.state.spinner;
+
         let cont = (
             <React.Fragment>
                 <div className = {classes.Div1}>
                     <Logo />
+                </div>
+                <div className = {classes.Div2}>
+                    {spin ? <Spinner/> : null}
+                </div>
+                <div className = {classes.Div3}>
+                    {spin ? <Spinner/> : null}
                 </div>
                 <div className = {classes.Div4}>
                     <NewPost />
