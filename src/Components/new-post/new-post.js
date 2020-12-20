@@ -3,6 +3,7 @@ import classes from "./Form.module.css";
 import ButtonIs from "../Button/Button";
 import axios from "../../Axios";
 import Spinner from "../Spinner/spinner";
+import ImageUploader from "react-images-upload";
 
 
 const NewPostForm = (props) => {
@@ -11,6 +12,7 @@ const NewPostForm = (props) => {
     const [content, setContent] = useState("");
     const [spinner, setSpinner] = useState(false);
     const [error, setError] = useState(false);
+    const [pictures, setPictures] = useState([]);
 
     const submitForm = () => {
         setSpinner(true);
@@ -26,7 +28,8 @@ const NewPostForm = (props) => {
             title: title,
             author: author,
             content: content,
-            date: fullDate
+            date: fullDate,
+            image: pictures
         }
         
         if (post.title !== "" && post.author !== "" && post.content !== "") {
@@ -49,6 +52,17 @@ const NewPostForm = (props) => {
         }
         
     }
+
+    const onDrop = picture => {
+            let reader = new FileReader();
+            let url = reader.readAsDataURL(picture[0]);
+            reader.onloadend = function (e) {
+            setPictures(reader.result);
+        };
+    };
+
+    console.log(pictures);
+
 
     return(<React.Fragment>
             {spinner ? <Spinner /> : <div id = "new-form">
@@ -86,7 +100,7 @@ const NewPostForm = (props) => {
                         
                         </div>
                         <div>
-                        <label>Blog Content</label>
+                            <label>Blog Content</label>
                             <div>                     
                                 <textarea  
                                 id="textarea" 
@@ -96,6 +110,18 @@ const NewPostForm = (props) => {
                                 required
                                 ></textarea>
                             </div>
+                        </div>
+
+                        <div style = {{margin: "10px 200px"}}>
+                            <label>Add a photo</label>
+                            <ImageUploader
+                                {...props}
+                                withIcon={true}
+                                onChange={onDrop}
+                                imgExtension={[".jpg",".jpeg", ".gif", ".png", ".gif"]}
+                                maxFileSize={5242880}
+                                withPreview={true}
+                            />
                         </div>
 
                         <div>

@@ -6,6 +6,7 @@ import classes from "./Home.module.css";
 import NewPost from "../Components/new-post/new-post";
 import axios from "../Axios";
 import Spinner from "../Components/Spinner/spinner";
+import Footer from "../Components/Footer/footer";
 
 
 class Home extends Component {
@@ -66,7 +67,7 @@ class Home extends Component {
                     <NewPost />
                 </div>
                 <div className = {classes.Div5}>
-            
+                    <Footer />
                 </div>
             </React.Fragment>
         );
@@ -96,7 +97,7 @@ class Home extends Component {
                     </div>
 
                     <div className = {classes.Div5}>
-                    
+                        <Footer />
                     </div>
                 </React.Fragment>
             );

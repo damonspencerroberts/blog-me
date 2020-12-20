@@ -30,7 +30,7 @@ const Post = (props) => {
 
     return (
         <div className = {classes.Container}>
-            <img src="https://picsum.photos/300" alt="rand"/>
+            <img src={chosenBlog.image} alt={"image" + chosenBlog.author}/>
             <div className = {classes.Title}>
                 <h1>{chosenBlog.title}</h1>
             </div>
