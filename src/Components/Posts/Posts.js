@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Posts.module.css';
+import SmallButton from "../Button/Small-Btn/Small-Btn";
 
 const Posts = (props) => {
-
     const data = props.jsondata;
-
-    const data1 = data.sort((a,b) => (a.date > b.date) ? -1 : ((b.date > a.date) ? 1 : 0)); ;
-
+    const [start, setStart] = useState(0);
+    const [end, setEnd] = useState(4);
+    const data1 = data.slice(start, end).sort((a,b) => (a.date > b.date) ? -1 : ((b.date > a.date) ? 1 : 0));
     
     const DifferentPosts = data1.map((e, i) => {
         return (
@@ -24,6 +24,28 @@ const Posts = (props) => {
             </div>
         );
     });
+
+    const Next = (start, end, dir) => {
+    
+        let s, e;
+
+        if (start <= 0 && dir === "prev" ) {
+            s = 0;
+            e = 4;
+        } else if (dir === "next") {
+            s = start += 5;
+            e = end += 5;
+        } else if (dir === "prev") {
+            s = start -= 5;
+            e = start -= 5;
+        } else {
+            alert("error!")
+        }
+
+        setStart(s);
+        setEnd(e);
+        
+    }
     
 
     return(
@@ -33,6 +55,12 @@ const Posts = (props) => {
             </div>
             
             {DifferentPosts}
+
+            <div className = {classes.PostBtns}>
+                <p>{start + 1} - {end + 1} of {data.length} posts.</p>
+                <SmallButton text = "Previous" clicked = {() => Next(start, end, "prev")}/>
+                <SmallButton text = "Next" clicked = {() => Next(start, end, "next")}/>
+            </div>
         </div>
     );
 
