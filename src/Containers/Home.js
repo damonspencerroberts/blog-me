@@ -24,28 +24,31 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.setState({spinner: true});
         this.getData();
     }
 
 
 
     getData() {
-        
+        this.setState({spinner: true});
         axios.get("/blog-post.json")
         .then(res => {
             const s = [];
             for (let e in res.data) {
                 s.push({
-                    ...res.data[e]
+                    ...res.data[e],
+                    eachId: e
                 });
                 this.setState({data: s, chosen: s[0], spinner: false});
+            }
+            if (s.length === 0) {
+                this.setState({spinner: false});
             }
         })
         .catch(err => {
             this.setState({spinner: false});
             alert(err);
-        }) 
+        }); 
     }
 
     clickedBlog(clickedIndex) {

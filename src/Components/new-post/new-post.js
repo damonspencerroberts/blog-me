@@ -61,8 +61,6 @@ const NewPostForm = (props) => {
         };
     };
 
-    console.log(pictures);
-
 
     return(<React.Fragment>
             {spinner ? <Spinner /> : <div id = "new-form">
