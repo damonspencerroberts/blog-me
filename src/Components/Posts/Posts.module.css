@@ -8,15 +8,21 @@
     text-align: center;
 }
 
+.Header h1 {
+    font-size: 4rem;
+}
+
 .Posts {
     margin: 20px;
     padding: 25px;
-    height: 250px;
+    height: 225px;
     width: 80%;
-    background-color: rgb(205, 232, 255);
+    background-color: #1F8AC0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     display: block;
     position: relative;
+    color: #EFC9AF;
+    overflow: auto;
 }
 
 .Posts:hover {
@@ -26,7 +32,7 @@
 
 .Posts p {
     font-weight: 200;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .Title {
@@ -34,7 +40,8 @@
 }
 
 .Title h3 {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-style: italic;
     margin: 0 auto;
 }
 

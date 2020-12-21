@@ -13,6 +13,7 @@ const NewPostForm = (props) => {
     const [spinner, setSpinner] = useState(false);
     const [error, setError] = useState(false);
     const [pictures, setPictures] = useState([]);
+    const [posted, setPosted] = useState(false);
 
     const submitForm = () => {
         setSpinner(true);
@@ -36,8 +37,10 @@ const NewPostForm = (props) => {
             axios.post('/blog-post.json', post)
                 .then(response => {
                     console.log("Success");
+                    props.update(true);
                     setSpinner(false);
                     setError(false);
+                    setPosted(true);
                     setAuthor("");
                     setTitle("");
                     setContent("");
@@ -64,9 +67,12 @@ const NewPostForm = (props) => {
 
     return(<React.Fragment>
             {spinner ? <Spinner /> : <div id = "new-form">
-                <hr className = {classes.Horizontal} />
                 <div className = {classes.Form}>
                     <h1>New Post</h1>
+                    {posted ? <p style = {{
+                        fontSize: "1.2rem",
+                        color: "maroon"
+                    }}>Thanks for posting! Please see your post above</p> : null}
                     {error ? <p style = {{color: "red"}}>Please dont leave any fields blank!</p> : null}
                     <form>
                         <div>
@@ -119,11 +125,20 @@ const NewPostForm = (props) => {
                                 imgExtension={[".jpg",".jpeg", ".gif", ".png", ".gif"]}
                                 maxFileSize={5242880}
                                 withPreview={true}
+                                fileContainerStyle = {{
+                                    backgroundColor: "#EFC9AF",
+                                    color: "#104C91"
+                                }}
                             />
                         </div>
 
                         <div>
-                            <ButtonIs text = "Post Blog" clicked = {submitForm}/>
+                            <ButtonIs 
+                                text = "Post Blog" 
+                                clicked = {submitForm}
+                                color = "#104C91"
+                                bgcolor = "#EFC9AF"
+                            />
                         </div>
                     </form>
                 </div>

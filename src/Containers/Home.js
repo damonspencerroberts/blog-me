@@ -7,6 +7,7 @@ import NewPost from "../Components/new-post/new-post";
 import axios from "../Axios";
 import Spinner from "../Components/Spinner/spinner";
 import Footer from "../Components/Footer/footer";
+import Null1 from "../Components/Null-pages/np1/null-page1";
 
 
 class Home extends Component {
@@ -16,33 +17,44 @@ class Home extends Component {
         this.state = {
             chosen: null,
             data: null,
-            spinner: false
+            spinner: false,
+            shouldUpdate: false
         }
 
         this.clickedBlog = this.clickedBlog.bind(this);
         this.getData = this.getData.bind(this);
+        this.changeUpdate = this.changeUpdate.bind(this);
     }
 
     componentDidMount() {
         this.getData();
     }
 
+    componentDidUpdate() {
+        if (this.state.shouldUpdate) {
+            for (var i = 1; i < 3; i++) this.getData();
+            console.log("updated!");
+            this.changeUpdate(false);
+        }
+    }
 
 
     getData() {
         this.setState({spinner: true});
+        const s = [];
         axios.get("/blog-post.json")
         .then(res => {
-            const s = [];
             for (let e in res.data) {
                 s.push({
                     ...res.data[e],
                     eachId: e
                 });
-                this.setState({data: s, chosen: s[0], spinner: false});
             }
-            if (s.length === 0) {
-                this.setState({spinner: false});
+        }).then(() => {
+            if (s.length !== 0) {
+                this.setState({data: s, chosen: s[0], spinner: false});
+            } else {
+                this.setState({data: null, chosen: null, spinner: false});
             }
         })
         .catch(err => {
@@ -57,7 +69,10 @@ class Home extends Component {
             });
     
         this.setState({chosen: s});
+    }
 
+    changeUpdate(p) {
+        this.setState({shouldUpdate: p});
     }
     
     render() {
@@ -69,13 +84,15 @@ class Home extends Component {
                     <Logo />
                 </div>
                 <div className = {classes.Div2}>
-                    {spin ? <Spinner/> : null}
+                    {spin ? <Spinner/> : <Null1 header = "Currently no posts to show!" paragraph = "Please add a post below" size = "4rem" />}
                 </div>
                 <div className = {classes.Div3}>
-                    {spin ? <Spinner/> : null}
+                    {spin ? <Spinner/> : <Null1 header = "Previous Posts" paragraph = "No posts yet" size = "3rem"/>}
                 </div>
                 <div className = {classes.Div4}>
-                    <NewPost />
+                    <NewPost 
+                        update = {this.changeUpdate}
+                    />
                 </div>
                 <div className = {classes.Div5}>
                     <Footer />
@@ -100,11 +117,14 @@ class Home extends Component {
                         {spin ? <Spinner /> : <Posts 
                             jsondata = {this.state.data}
                             clickedBlog = {this.clickedBlog}
+                            update = {this.changeUpdate}
                         />}
                     </div>
 
                     <div className = {classes.Div4}>
-                        <NewPost />
+                        <NewPost 
+                            update = {this.changeUpdate}
+                        />
                     </div>
 
                     <div className = {classes.Div5}>

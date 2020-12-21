@@ -1,13 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
 
 body {
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto Slab', serif;
   letter-spacing: 1px;
-  background-color: aliceblue;
+  color: #104C91;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
 }
 
 html {
   scroll-behavior: smooth; 
 }
+
 

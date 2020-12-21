@@ -9,7 +9,6 @@ const Posts = (props) => {
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(3);
     const data1 = data.slice(start, end).sort((a,b) => (a.date > b.date) ? -1 : ((b.date > a.date) ? 1 : 0));
-    
   
     const DifferentPosts = data1.map((e, i) => {
         return (
@@ -18,7 +17,7 @@ const Posts = (props) => {
                 <div className = {classes.Title}>
                     <h3>{e.title}</h3>
                 </div>
-                <p>{e.content.slice(0, 160)}...</p>
+                <p>{e.content.slice(0, 120)}...</p>
                 <div className = {classes.Author}>
                     <p>{e.author}</p>
                 </div>
@@ -31,6 +30,7 @@ const Posts = (props) => {
     
     const clickDelete = (deletedId) => {
         axios.delete('/blog-post/' + deletedId + ".json");
+        props.update(true);
     }
 
     const Next = (start, end, dir) => {
@@ -67,8 +67,18 @@ const Posts = (props) => {
 
             <div className = {classes.PostBtns}>
                 <p>{`Page ${parseInt(end/3)} / ${Math.ceil(data.length/3)}`}</p>
-                <SmallButton text = "Previous" clicked = {() => Next(start, end, "prev")}/>
-                <SmallButton text = "Next" clicked = {() => Next(start, end, "next")}/>
+                <SmallButton 
+                    text = "Previous" 
+                    clicked = {() => Next(start, end, "prev")}
+                    color = "#EFC9AF"
+                    bgcolor = "#1F8AC0"
+                    />
+                <SmallButton 
+                    text = "Next" 
+                    clicked = {() => Next(start, end, "next")}
+                    color = "#EFC9AF"
+                    bgcolor = "#1F8AC0"
+                    />
             </div>
         </div>
     );

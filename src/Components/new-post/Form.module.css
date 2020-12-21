@@ -1,10 +1,11 @@
 .Form {
     text-align: center;
     margin:  50px;
+    color: #EFC9AF;
 }
 
 .Form h1 {
-    text-decoration: underline;
+    font-size: 4rem;
 }
 
 .Form div {
@@ -16,21 +17,34 @@
 }
 
 .Form input {
-    height: 40px;
-    width: 300px;
+    height: 50px;
+    width: 350px;
     font-size: 1.25rem;
     margin: 5px;
+    border: none;
+    border-radius: 2px;
+    background-color: #EFC9AF;
+    color: #104C91;
 }
+
+
+.Form input:focus, 
+.Form textarea:focus {
+    outline: none !important;
+    border: 2px solid #104C91;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+
 
 .Form textarea {
     height: 400px;
-    width: 700px;
+    width: 1000px;
     margin: 5px;
     font-size: 1.25rem;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Roboto Slab', serif;
     padding: 5px;
-}
-
-.Horizontal {
-    margin: 50px;
+    border: none;
+    background-color: #EFC9AF;
+    color: #104C91;
 }
