@@ -14,6 +14,8 @@ const NewPostForm = (props) => {
     const [error, setError] = useState(false);
     const [pictures, setPictures] = useState([]);
     const [posted, setPosted] = useState(false);
+    const [imageLabel, setImageLabel] = useState("Max file size: 5mb, accepted: jpg, jpeg, png, gif");
+
 
     const submitForm = () => {
         setSpinner(true);
@@ -41,6 +43,7 @@ const NewPostForm = (props) => {
                     setSpinner(false);
                     setError(false);
                     setPosted(true);
+                    setImageLabel("Max file size: 5mb, accepted: jpg, jpeg, png, gif");
                     setAuthor("");
                     setTitle("");
                     setContent("");
@@ -61,6 +64,7 @@ const NewPostForm = (props) => {
             let url = reader.readAsDataURL(picture[0]);
             reader.onloadend = function (e) {
             setPictures(reader.result);
+            setImageLabel(picture[0].name);
         };
     };
 
@@ -124,10 +128,14 @@ const NewPostForm = (props) => {
                                 onChange={onDrop}
                                 imgExtension={[".jpg",".jpeg", ".gif", ".png", ".gif"]}
                                 maxFileSize={5242880}
-                                withPreview={true}
                                 fileContainerStyle = {{
                                     backgroundColor: "#EFC9AF",
                                     color: "#104C91"
+                                }}
+                                label = {imageLabel}
+                                singleImage = {true}
+                                labelStyles = {{
+                                    fontSize: "1rem"
                                 }}
                             />
                         </div>
