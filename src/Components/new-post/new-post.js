@@ -14,6 +14,7 @@ const NewPostForm = (props) => {
     const [error, setError] = useState(false);
     const [pictures, setPictures] = useState([]);
     const [posted, setPosted] = useState(false);
+    const [isImage, setIsImage] = useState(false);
     const [imageLabel, setImageLabel] = useState("Max file size: 5mb, accepted: jpg, jpeg, png, gif");
 
 
@@ -32,11 +33,12 @@ const NewPostForm = (props) => {
             author: author,
             content: content,
             date: fullDate,
-            image: pictures
+            image: pictures,
+            isImage: isImage
         }
         
         if (post.title !== "" && post.author !== "" && post.content !== "") {
-            axios.post('/blog-post.json', post)
+            axios.post('/test-blog-post.json', post)
                 .then(response => {
                     console.log("Success");
                     props.update(true);
@@ -47,6 +49,8 @@ const NewPostForm = (props) => {
                     setAuthor("");
                     setTitle("");
                     setContent("");
+                    setPictures([]);
+                    setIsImage(false);
                 })
                     
                 .catch(error => {
@@ -65,6 +69,7 @@ const NewPostForm = (props) => {
             reader.onloadend = function (e) {
             setPictures(reader.result);
             setImageLabel(picture[0].name);
+            setIsImage(true);
         };
     };
 

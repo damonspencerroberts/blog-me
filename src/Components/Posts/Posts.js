@@ -29,7 +29,7 @@ const Posts = (props) => {
     });
     
     const clickDelete = (deletedId) => {
-        axios.delete('/blog-post/' + deletedId + ".json");
+        axios.delete('/final-posts/' + deletedId + ".json");
         props.update(true);
     }
 

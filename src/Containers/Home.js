@@ -42,7 +42,7 @@ class Home extends Component {
     getData() {
         this.setState({spinner: true});
         const s = [];
-        axios.get("/blog-post.json")
+        axios.get("/final-posts.json")
         .then(res => {
             for (let e in res.data) {
                 s.push({

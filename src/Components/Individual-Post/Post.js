@@ -30,7 +30,7 @@ const Post = (props) => {
 
     return (
         <div className = {classes.Container}>
-            <img src={chosenBlog.image} alt={"image" + chosenBlog.author}/>
+            {chosenBlog.isImage ? <img src={chosenBlog.image} alt={"image" + chosenBlog.author}/> : null }
             <div className = {classes.Title}>
                 <h1>{chosenBlog.title}</h1>
             </div>
