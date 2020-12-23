@@ -14,3 +14,7 @@
 .Title h1 {
     font-size: 4rem;
 }
+
+.Content {
+    text-align: left;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from "./Post.module.css";
+import ReactMarkdown from 'react-markdown'
 
 const Post = (props) => {
     //img
@@ -13,18 +14,7 @@ const Post = (props) => {
 
     const formatParagraph = (p) => {
 
-        const newP = p.split("\n\n");
-        const newArr = [];
-        for (let e in newP) {
-            if (newP[e] !== "") {
-                newArr.push(newP[e]);
-            }
-        }
-
-        const zen = newP.map((e, i) => {
-            return <p key = {i}>{e}</p>
-        });
-        return zen;
+        return <ReactMarkdown>{p}</ReactMarkdown>;
     }
 
 

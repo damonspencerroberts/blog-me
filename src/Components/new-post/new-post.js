@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useState } from 'react';
 import classes from "./Form.module.css";
 import ButtonIs from "../Button/Button";
@@ -114,6 +115,7 @@ const NewPostForm = (props) => {
                         </div>
                         <div>
                             <label>Blog Content</label>
+                            <p>This text box uses markdown. Check <a target = "_blank" href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf">this link</a> for more information.</p>
                             <div>                     
                                 <textarea  
                                 id="textarea" 
