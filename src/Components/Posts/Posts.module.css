@@ -1,7 +1,7 @@
 .List {
     width: 500px;
     max-height: 1200px;
-    overflow: auto; 
+    overflow: auto;
 }
 
 .Header {
@@ -59,4 +59,33 @@
 
 .PostBtns {
     text-align: center;
+}
+.DeleteForm {
+    margin: 10px auto !important;
+    text-align: center;
+}
+
+.Button {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+	font-size: 5px;
+	font-weight: bold;
+	padding: 3px 12px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 12px;
+    width: 150px;
+    font-size: 1rem;
+    border-radius: 20px;
+    color: #1F8AC0;
+    background-color: #EFC9AF;
+    border: none;
+}
+
+.Button:hover {
+	opacity: 0.75;
+}
+
+.Button:active {
+	top:1px;
 }

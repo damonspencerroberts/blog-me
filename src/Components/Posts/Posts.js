@@ -8,12 +8,32 @@ const Posts = (props) => {
     const data = props.jsondata;
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(3);
+    const pWord = "delete-post123";
+    const [passPrompt, setPassPrompt] = useState(false);
+    const [pass, setPass] = useState("");
+    const [current, setCurrent] = useState(null);
     const data1 = data.slice(start, end).sort((a,b) => (a.date > b.date) ? -1 : ((b.date > a.date) ? 1 : 0));
-  
+    //e.eachId
     const DifferentPosts = data1.map((e, i) => {
         return (
             <div key = {i} className = {classes.Posts} onClick = {() => props.clickedBlog(i + start)}>
-                <Delete clicked = {() => clickDelete(e.eachId)}/>
+                <Delete clicked = {() => {
+                    setPassPrompt(true)
+                    setCurrent(e.eachId)
+                }}/>
+                {passPrompt && current === e.eachId? 
+                    <form 
+                        className = {classes.DeleteForm}
+                        onSubmit = {() => clickDelete(e.eachId)}
+                    >
+                    <input 
+                        type = "password" 
+                        placeholder = "Delete Password" 
+                        value = {pass} 
+                        onChange = {(event) => setPass(event.target.value)} 
+                    />
+                    <button className = {classes.Button}>Delete Post</button>
+                </form> : null}
                 <div className = {classes.Title}>
                     <h3>{e.title}</h3>
                 </div>
@@ -29,8 +49,13 @@ const Posts = (props) => {
     });
     
     const clickDelete = (deletedId) => {
-        axios.delete('/final-posts/' + deletedId + ".json");
-        props.update(true);
+        if (pass === pWord) {
+            axios.delete('/final-posts/' + deletedId + ".json");
+            props.update(true);
+            setPassPrompt(false);
+        } else {
+            alert("Incorrect Delete Password. Try again!");
+        }
     }
 
     const Next = (start, end, dir) => {
